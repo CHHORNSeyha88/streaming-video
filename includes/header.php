@@ -1,7 +1,8 @@
 <?php
 
+session_start();
 
-define("APPURL","http://localhost/anime-main")
+define("APPURL", "http://localhost/anime-main")
 
 
 ?>
@@ -20,7 +21,7 @@ define("APPURL","http://localhost/anime-main")
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href=" <?php echo APPURL ?>/css/bootstrap.min.css" type="text/css">
@@ -32,8 +33,9 @@ define("APPURL","http://localhost/anime-main")
     <link rel="stylesheet" href="<?php echo APPURL ?>/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo APPURL ?>/css/style.css" type="text/css">
 </head>
+
 <body>
-    <!-- Page Preloder -->  
+    <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
@@ -56,16 +58,20 @@ define("APPURL","http://localhost/anime-main")
                                 <li><a href="./index.html">Homepage</a></li>
                                 <li><a href="./categories.html">Categories <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
-                                        <li><a href="./categories.html">Categories</a></li>
-                                        <li><a href="./anime-details.html">Anime Details</a></li>
-                                        <li><a href="./anime-watching.html">Anime Watching</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="./signup.html">Sign Up</a></li>
-                                        <li><a href="./login.html">Login</a></li>
+                                        <li><a href="./categories.html">Magic</a></li>
+                                        <li><a href="./categories.html">Adventure</a></li>
+                                        <li><a href="./categories.html">Action</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="./blog.html">Our Blog</a></li>
-                                <li><a href="#">Contacts</a></li>
+                                <?php if (isset($_SESSION['username'])) : ?>
+                                    <li><a href="#"><?php echo $_SESSION['username']; ?> <span class="arrow_carrot-down"></span></a>
+                                        <ul class="dropdown">
+                                            <li><a href="./categories.html">Magic</a></li>
+                                            <li><a href="./categories.html">Adventure</a></li>
+                                            <li><a href="<?php  echo APPURL; ?>/auth/logout.php">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                <?php endif; ?>
                             </ul>
                         </nav>
                     </div>
@@ -73,7 +79,9 @@ define("APPURL","http://localhost/anime-main")
                 <div class="col-lg-2">
                     <div class="header__right">
                         <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        <a href="./login.html"><span class="icon_profile"></span></a>
+                        <?php if (!isset($_SESSION['username'])) : ?>
+                            <a href="<?php echo APPURL; ?>/auth/login.php"><span class="icon_profile"></span></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

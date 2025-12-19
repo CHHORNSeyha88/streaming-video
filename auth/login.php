@@ -6,6 +6,11 @@
 <!-- login backed -->
 <?php
 
+if(isset($_SESSION['username'])){
+    header("location: ".APPURL."");
+}
+
+
 if(isset($_POST['submit'])){
 
     if(empty($_POST['email']) OR empty($_POST['password'])){
@@ -32,8 +37,13 @@ if(isset($_POST['submit'])){
 
                 // 6. START SESSION properly
                 // (Make sure session_start(); is at the very top of your file or in header.php)
-                
+
+                $_SESSION['username'] = $fetch['username'];
+                $_SESSION['email'] = $fetch['email'];
+
                 header("location: ".APPURL."");
+
+
             } else {
                 echo "<script>alert('Email or password is wrong!');</script>";
             }
